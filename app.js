@@ -1,8 +1,7 @@
-
-let timerDisplay = document.getElementById('timer');
-let startBtn = document.getElementById('start');
-let pauseBtn = document.getElementById('stop');
-let resetBtn = document.getElementById('reset');
+const timerDisplay = document.getElementById('timer');
+const startBtn = document.getElementById('start');
+const pauseBtn = document.getElementById('pause');
+const resetBtn = document.getElementById('reset');
 
 let duration = 25 * 60;
 let timeLeft = duration;
@@ -10,8 +9,8 @@ let timerInterval = null;
 let isRunning = false;
 
 function formatTime(seconds) {
-    let mins = Math.floor(seconds / 60);
-    let secs = seconds % 60;
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
     return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 }
 
@@ -22,11 +21,13 @@ function updateDisplay() {
 function startTimer() {
     if (isRunning) return;
     isRunning = true;
-
     timerInterval = setInterval(() => {
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
             alert("Pomodoro complete! 🎉");
+            isRunning = false;
+            timeLeft = duration;
+            updateDisplay();
             return;
         }
         timeLeft--;
@@ -50,4 +51,3 @@ pauseBtn.addEventListener('click', pauseTimer);
 resetBtn.addEventListener('click', resetTimer);
 
 updateDisplay();
-
